@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GUILib — Documentation</title>
+<meta name="description" content="Documentation for GUILib, a GUI extension for TurboWarp, Scratch and PenguinMod.">
+<style>
+:root{--bg:#0b1020;--panel:#11182b;--panel2:#17213a;--text:#eef3ff;--muted:#aab6d3;--accent:#7c9cff;--border:#263252;--code:#0a0f1c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:15px/1.7 system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(135deg,#090e1b,#10182b);color:var(--text)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}.layout{display:grid;grid-template-columns:270px 1fr;min-height:100vh}
+aside{position:sticky;top:0;height:100vh;padding:28px 20px;border-right:1px solid var(--border);background:rgba(11,16,32,.9);backdrop-filter:blur(12px)}
+.brand{font-size:24px;font-weight:800;margin-bottom:4px}.tag{color:var(--muted);font-size:13px;margin-bottom:24px}.nav a{display:block;padding:8px 10px;border-radius:8px;color:var(--muted)}.nav a:hover{background:var(--panel2);color:var(--text);text-decoration:none}
+main{max-width:1000px;width:100%;padding:60px 6vw 100px;margin:auto}header{padding:34px;border:1px solid var(--border);background:linear-gradient(145deg,#172342,#11182b);border-radius:20px;margin-bottom:42px}
+h1{font-size:48px;line-height:1.1;margin:0 0 12px}h2{font-size:30px;margin-top:55px;border-bottom:1px solid var(--border);padding-bottom:10px}h3{font-size:20px;margin-top:30px}p{color:#d7def0}ul{color:#d7def0}
+.badges span{display:inline-block;padding:5px 9px;margin:4px 5px 0 0;border:1px solid var(--border);border-radius:999px;background:var(--panel);color:var(--muted);font-size:12px}
+pre{overflow:auto;background:var(--code);border:1px solid var(--border);padding:17px;border-radius:12px;color:#dce6ff}code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace} :not(pre)>code{background:var(--panel2);padding:2px 5px;border-radius:5px}
+.cardgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.card{padding:18px;background:var(--panel);border:1px solid var(--border);border-radius:14px}.card b{display:block;margin-bottom:5px}
+table{width:100%;border-collapse:collapse;background:var(--panel);border-radius:12px;overflow:hidden}th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--border)}th{color:#fff;background:var(--panel2)}
+.tip{border-left:3px solid var(--accent);background:var(--panel);padding:12px 16px;border-radius:8px;margin:18px 0;color:#dbe4fa}
+footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted)}
+@media(max-width:800px){.layout{display:block}aside{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--border)}.nav{display:flex;flex-wrap:wrap;gap:4px}.nav a{padding:6px 8px}main{padding:35px 20px 70px}h1{font-size:38px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+<div class="brand">GUILib</div><div class="tag">GUI extension for TurboWarp</div>
+<nav class="nav">
+<a href="#intro">Introduction</a><a href="#install">Installation</a><a href="#workflow">Basic workflow</a><a href="#elements">Elements</a><a href="#properties">Properties</a><a href="#events">Events</a><a href="#extras">UI extras</a><a href="#editor">Visual editor</a><a href="#json">JSON layouts</a><a href="#example">Example</a><a href="#troubleshooting">Troubleshooting</a>
+</nav>
+</aside>
+<main>
+<header id="intro">
+<h1>Build GUIs inside TurboWarp</h1>
+<p>GUILib is a JavaScript extension for creating panels, windows, labels, buttons, inputs and other interface elements directly in a TurboWarp project.</p>
+<div class="badges"><span>TurboWarp</span><span>Scratch-compatible blocks</span><span>Visual editor</span><span>JSON layouts</span></div>
+<p><a href="https://github.com/xNrep/GUILibExt">View the repository →</a></p>
+</header>
+
+<h2 id="install">Installation</h2>
+<ol><li>Open TurboWarp and open the Extensions menu.</li><li>Choose the option to load an extension from a URL or local file.</li><li>Use the repository's <code>GUILib.js</code> file.</li><li>Enable the extension and start building your interface.</li></ol>
+<div class="tip">GUILib uses browser DOM APIs, so it is intended for TurboWarp-style unsandboxed extensions.</div>
+
+<h2 id="workflow">Basic workflow</h2>
+<p>The usual workflow is simple: show the GUI, create elements, configure them, then react to user interaction.</p>
+<pre><code>Show GUI
+Create panel "main"
+Create label "title" with "Hello!"
+Create button "start" with "Start"
+Set "start" property "x" to 40</code></pre>
+
+<h2 id="elements">Elements</h2>
+<div class="cardgrid">
+<div class="card"><b>Panel</b>Container for grouping interface content.</div>
+<div class="card"><b>Window</b>Floating draggable interface container.</div>
+<div class="card"><b>Label</b>Text displayed in the GUI.</div>
+<div class="card"><b>Button</b>Clickable control.</div>
+<div class="card"><b>Input</b>Text entry field.</div>
+<div class="card"><b>Checkbox</b>Boolean toggle.</div>
+<div class="card"><b>Slider</b>Numeric range control.</div>
+<div class="card"><b>Dropdown</b>Selection control.</div>
+</div>
+
+<h2 id="properties">Properties and management</h2>
+<p>Use the element ID to modify or inspect an existing element.</p>
+<table><tr><th>Operation</th><th>Purpose</th></tr>
+<tr><td>Set property</td><td>Change position, size, text, value or styling-related properties.</td></tr>
+<tr><td>Get property</td><td>Read an element value or property.</td></tr>
+<tr><td>Exists</td><td>Check whether an element ID is registered.</td></tr>
+<tr><td>Remove</td><td>Delete one element.</td></tr>
+<tr><td>Bring to front</td><td>Raise an element above other GUI elements.</td></tr>
+<tr><td>Set draggable</td><td>Enable or disable dragging for supported elements.</td></tr>
+</table>
+
+<h2 id="events">Events</h2>
+<p>GUILib exposes event blocks for interaction such as button clicks and value changes. Give interactive elements stable IDs so your project logic can identify them.</p>
+<ul><li><strong>When element clicked</strong> — react to a click.</li><li><strong>When element changed</strong> — react to input, checkbox, slider or dropdown changes.</li><li><strong>When modal confirmed</strong> — react to modal confirmation.</li><li><strong>When tab changed</strong> — react to tab selection changes.</li></ul>
+
+<h2 id="extras">UI extras</h2>
+<div class="cardgrid">
+<div class="card"><b>Toast</b>Show a short notification.</div>
+<div class="card"><b>Modal</b>Show a dialog with a message and confirmation.</div>
+<div class="card"><b>Tooltip</b>Attach contextual help to an element.</div>
+<div class="card"><b>Tabs</b>Create tabbed interface groups and select a tab.</div>
+<div class="card"><b>Theme</b>Switch the GUI theme.</div>
+<div class="card"><b>Scale</b>Adjust the GUI scale.</div>
+</div>
+
+<h2 id="editor">Visual editor</h2>
+<p>Use <strong>Open Editor</strong> to open the GUILib editor in a new browser tab. The editor provides a canvas, hierarchy, selection, dragging, resizing, grid/snap controls, duplication and deletion.</p>
+<p>The editor can export the current layout as JSON and import it again later, making it useful for designing interfaces before wiring them to project logic.</p>
+
+<h2 id="json">JSON layouts</h2>
+<p>Exported layouts are designed to make interface positions portable. Keep your exported JSON with your project source if you want a reproducible UI layout.</p>
+<pre><code>{
+  "version": 1,
+  "elements": [
+    {
+      "id": "title",
+      "type": "label",
+      "text": "Hello"
+    }
+  ]
+}</code></pre>
+
+<h2 id="example">Complete example</h2>
+<pre><code>Show GUI
+Create panel "main"
+Create label "title" with "My App"
+Create input "name"
+Create button "ok" with "Continue"
+Create checkbox "remember" with "Remember me"
+Create slider "volume"
+Create dropdown "mode" with "Easy,Normal,Hard"
+
+When element clicked "ok"
+  Get value of "name"</code></pre>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li><strong>Nothing appears:</strong> make sure <code>Show GUI</code> has been run and the project is using TurboWarp-compatible unsandboxed extension support.</li>
+<li><strong>An element is missing:</strong> verify its ID is unique and that the creation block ran before property blocks.</li>
+<li><strong>The editor does not open:</strong> check whether the browser blocked a new tab or popup.</li>
+<li><strong>Changes are not visible:</strong> clear the GUI and recreate the element, or use the editor refresh controls.</li>
+</ul>
+
+<footer>GUILib documentation · <a href="https://github.com/xNrep/GUILibExt">GitHub repository</a> · MIT License</footer>
+</main>
+</div>
+</body>
+</html>
